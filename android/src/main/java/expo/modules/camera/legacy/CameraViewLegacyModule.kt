@@ -260,6 +260,6 @@ class CameraViewLegacyModule : Module() {
 
   private fun findView(viewTag: Int): ExpoCameraView {
     return appContext.findView(viewTag)
-      ?: throw Exceptions.ViewNotFound(ExpoCameraView::class, viewTag)
+      ?: throw Exceptions.ViewNotFound(ExpoCameraView::class.java, viewTag)
   }
 }

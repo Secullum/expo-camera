@@ -27,8 +27,8 @@ import expo.modules.interfaces.barcodescanner.BarCodeScannerProviderInterface
 import expo.modules.interfaces.barcodescanner.BarCodeScannerResult
 import expo.modules.interfaces.barcodescanner.BarCodeScannerSettings
 import expo.modules.interfaces.camera.CameraViewInterface
-import expo.modules.interfaces.facedetector.FaceDetectorInterface
-import expo.modules.interfaces.facedetector.FaceDetectorProviderInterface
+import com.secullum.expo.modules.interfaces.facedetector.FaceDetectorInterface
+import com.secullum.expo.modules.interfaces.facedetector.FaceDetectorProviderInterface
 import expo.modules.kotlin.AppContext
 import expo.modules.kotlin.Promise
 import expo.modules.kotlin.views.ExpoView
