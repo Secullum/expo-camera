@@ -2,6 +2,7 @@ package expo.modules.camera.legacy
 
 import android.Manifest
 import com.google.android.cameraview.AspectRatio
+import com.google.android.cameraview.CameraViewAspectRatios
 import com.google.android.cameraview.Size
 import expo.modules.camera.legacy.tasks.ResolveTakenPictureAsyncTask
 import expo.modules.core.interfaces.services.UIManager
@@ -111,7 +112,7 @@ class CameraViewLegacyModule : Module() {
         throw CameraExceptions.CameraIsNotRunning()
       }
 
-      return@AsyncFunction view.cameraView.supportedAspectRatios.map { it.toString() }
+      return@AsyncFunction CameraViewAspectRatios.getSupportedAspectRatios(view.cameraView).map { it.toString() }
     }.runOnQueue(Queues.MAIN)
 
     AsyncFunction("getAvailablePictureSizes") { ratio: String, viewTag: Int ->
