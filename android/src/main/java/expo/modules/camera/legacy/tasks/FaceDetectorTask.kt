@@ -1,6 +1,6 @@
 package expo.modules.camera.legacy.tasks
 
-import expo.modules.interfaces.facedetector.FaceDetectorInterface
+import com.secullum.expo.modules.interfaces.facedetector.FaceDetectorInterface
 
 class FaceDetectorTask(
   private val mDelegate: FaceDetectorAsyncTaskDelegate,
