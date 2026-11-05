@@ -334,6 +334,20 @@ class ExpoCameraView(
     cameraView.stop()
   }
 
+  override fun onAttachedToWindow() {
+    super.onAttachedToWindow()
+
+    // Na New Architecture (Fabric), mudar o zIndex pode remover e reinserir esta view.
+    // Ao sair da janela, o TextureView destrói a superfície e o Camera1 fecha a câmera (onSurfaceDestroyed -> stop()).
+    // Quando a superfície volta, o preview não é reconfigurado porque a câmera está fechada.
+    // Reinicia a câmera aqui, o preview será configurado quando a superfície estiver pronta.
+    if (isNew || isPaused || cameraView.isCameraOpened || !hasCameraPermissions() || EmulatorUtilities.isRunningOnEmulator()) {
+      return
+    }
+
+    cameraView.start()
+  }
+
   private fun hasCameraPermissions(): Boolean {
     val permissionsManager = appContext.permissions ?: return false
     return permissionsManager.hasGrantedPermissions(Manifest.permission.CAMERA)
