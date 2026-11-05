@@ -27,8 +27,8 @@ import expo.modules.interfaces.barcodescanner.BarCodeScannerProviderInterface
 import expo.modules.interfaces.barcodescanner.BarCodeScannerResult
 import expo.modules.interfaces.barcodescanner.BarCodeScannerSettings
 import expo.modules.interfaces.camera.CameraViewInterface
-import expo.modules.interfaces.facedetector.FaceDetectorInterface
-import expo.modules.interfaces.facedetector.FaceDetectorProviderInterface
+import com.secullum.expo.modules.interfaces.facedetector.FaceDetectorInterface
+import com.secullum.expo.modules.interfaces.facedetector.FaceDetectorProviderInterface
 import expo.modules.kotlin.AppContext
 import expo.modules.kotlin.Promise
 import expo.modules.kotlin.views.ExpoView
@@ -332,6 +332,20 @@ class ExpoCameraView(
   override fun onHostDestroy() {
     faceDetector?.release()
     cameraView.stop()
+  }
+
+  override fun onAttachedToWindow() {
+    super.onAttachedToWindow()
+
+    // Na New Architecture (Fabric), mudar o zIndex pode remover e reinserir esta view.
+    // Ao sair da janela, o TextureView destrói a superfície e o Camera1 fecha a câmera (onSurfaceDestroyed -> stop()).
+    // Quando a superfície volta, o preview não é reconfigurado porque a câmera está fechada.
+    // Reinicia a câmera aqui, o preview será configurado quando a superfície estiver pronta.
+    if (isNew || isPaused || cameraView.isCameraOpened || !hasCameraPermissions() || EmulatorUtilities.isRunningOnEmulator()) {
+      return
+    }
+
+    cameraView.start()
   }
 
   private fun hasCameraPermissions(): Boolean {

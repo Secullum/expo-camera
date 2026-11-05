@@ -79,7 +79,7 @@ class CameraViewModule : Module() {
     }
 
     AsyncFunction("scanFromURLAsync") { url: String, barcodeTypes: List<BarcodeType>, promise: Promise ->
-      appContext.imageLoader?.loadImageForManipulationFromURL(
+      appContext.legacyModule<ImageLoaderInterface>()?.loadImageForManipulationFromURL(
         url,
         object : ImageLoaderInterface.ResultListener {
           override fun onSuccess(bitmap: Bitmap) {
